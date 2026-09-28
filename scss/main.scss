@@ -1,0 +1,81 @@
+// ═══════════════════════════════════════════════════════════════
+// main.scss — Entry Point
+// SGSSS Health & Pay Simulator 2026
+// ═══════════════════════════════════════════════════════════════
+
+@use 'tokens'     as t;
+@use 'mixins'     as m;
+@use 'base';
+@use 'components';
+
+// ═══════════════════════════════════════════════════════════════
+// UTILITY CLASSES
+// ═══════════════════════════════════════════════════════════════
+.gradient-text {
+  @include m.gradient-text(t.$teal, t.$indigo-bright);
+}
+
+// Color utilities
+.u-teal   { color: t.$teal !important; }
+.u-indigo { color: t.$indigo-bright !important; }
+.u-rose   { color: t.$rose !important; }
+.u-amber  { color: t.$amber !important; }
+
+// Metric value shortcuts (used by JS innerHTML)
+.metric-value {
+  font-family: t.$font-mono;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: right;
+  color: t.$text-primary;
+
+  &.teal    { color: t.$teal; }
+  &.highlight { color: t.$indigo-bright; font-size: 1rem; font-weight: 700; }
+}
+
+.em-value {
+  font-family: t.$font-mono;
+  font-size: 1rem;
+  font-weight: 700;
+  color: t.$text-primary;
+
+  &.orange { color: t.$amber; }
+  &.teal   { color: t.$teal; }
+  &.deficit { color: t.$rose; }
+}
+
+.sc-val {
+  font-family: t.$font-mono;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: t.$text-primary;
+  white-space: nowrap;
+
+  &.teal   { color: t.$teal; }
+  &.deficit { color: t.$rose; }
+}
+
+.exec-value {
+  font-family: t.$font-mono;
+  font-size: 1rem;
+  font-weight: 700;
+  color: t.$text-primary;
+
+  &.deficit { color: t.$rose; }
+  &.orange  { color: t.$amber; }
+  &.teal    { color: t.$teal; }
+}
+
+// Brand-sub in footer uses same class as header
+.brand-sub {
+  font-size: 0.65rem;
+  color: t.$text-muted;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.brand-name {
+  font-weight: 900;
+  font-size: 1.0rem;
+  letter-spacing: 0.12em;
+  @include m.gradient-text(t.$teal, t.$indigo-bright);
+}

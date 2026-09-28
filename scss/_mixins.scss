@@ -1,0 +1,125 @@
+// ═══════════════════════════════════════════════════════════════
+// _mixins.scss — Reusable Mixins & Functions
+// ═══════════════════════════════════════════════════════════════
+@use 'tokens' as t;
+
+// ─── GLASSMORPHISM ────────────────────────────────────────────
+@mixin glass($bg: t.$glass-bg, $blur: t.$glass-blur, $border: t.$glass-border) {
+  background: $bg;
+  border: 1px solid $border;
+  backdrop-filter: blur($blur) saturate(1.6);
+  -webkit-backdrop-filter: blur($blur) saturate(1.6);
+}
+
+@mixin glass-hover {
+  &:hover {
+    background: t.$glass-bg-hover;
+    border-color: t.$glass-border-hover;
+    box-shadow: t.$shadow-card-hover;
+  }
+}
+
+// ─── GRADIENT TEXT ────────────────────────────────────────────
+@mixin gradient-text($from: t.$teal, $to: t.$indigo) {
+  background: linear-gradient(135deg, $from, $to);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// ─── MONO METRIC ──────────────────────────────────────────────
+@mixin mono-metric($size: t.$text-2xl) {
+  font-family: t.$font-mono;
+  font-size: $size;
+  font-weight: t.$weight-bold;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+// ─── LABEL ────────────────────────────────────────────────────
+@mixin label {
+  font-size: t.$text-xs;
+  font-weight: t.$weight-semi;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: t.$text-secondary;
+}
+
+// ─── FLEX CENTER ──────────────────────────────────────────────
+@mixin flex-center($gap: 0) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @if $gap != 0 { gap: $gap; }
+}
+
+@mixin flex-between($gap: 0) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @if $gap != 0 { gap: $gap; }
+}
+
+// ─── BADGE ────────────────────────────────────────────────────
+@mixin badge($color, $bg-opacity: 0.1, $border-opacity: 0.25) {
+  display: inline-flex;
+  align-items: center;
+  gap: t.$space-2;
+  padding: 4px 12px;
+  border-radius: t.$r-full;
+  background: rgba($color, $bg-opacity);
+  border: 1px solid rgba($color, $border-opacity);
+  color: $color;
+  font-size: t.$text-xs;
+  font-weight: t.$weight-semi;
+  letter-spacing: 0.06em;
+}
+
+// ─── BUTTON BASE ──────────────────────────────────────────────
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  gap: t.$space-2;
+  border: none;
+  cursor: pointer;
+  font-family: t.$font-ui;
+  font-weight: t.$weight-bold;
+  border-radius: t.$r-full;
+  transition: all t.$transition-base;
+  white-space: nowrap;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0);
+    transition: background t.$transition-base;
+    border-radius: inherit;
+  }
+  &:hover::after { background: rgba(255,255,255,0.06); }
+  &:active::after { background: rgba(0,0,0,0.08); }
+}
+
+// ─── SCROLLBAR ────────────────────────────────────────────────
+@mixin custom-scrollbar($color: t.$teal) {
+  &::-webkit-scrollbar { width: 5px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb {
+    background: rgba($color, 0.25);
+    border-radius: 99px;
+    &:hover { background: rgba($color, 0.45); }
+  }
+}
+
+// ─── ANIMATIONS ───────────────────────────────────────────────
+@mixin animate-in($name: fadeUp) {
+  animation: #{$name} t.$duration-slow t.$ease-out-expo both;
+}
+
+// ─── RESPONSIVE ───────────────────────────────────────────────
+@mixin tablet { @media (max-width: 1024px) { @content; } }
+@mixin mobile { @media (max-width: 700px)  { @content; } }
+@mixin small  { @media (max-width: 480px)  { @content; } }

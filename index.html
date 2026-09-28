@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SGSSS Health & Pay Simulator 2026 | Calculadora de Incapacidades Colombia</title>
+  <meta name="description" content="Simulador interactivo de aportes al SGSSS e incapacidades médicas para trabajadores dependientes e independientes en Colombia. SMMLV 2026: $1.750.905." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<!-- Animated Background -->
+<div class="bg-mesh" aria-hidden="true">
+  <div class="mesh-orb orb-1"></div>
+  <div class="mesh-orb orb-2"></div>
+  <div class="mesh-orb orb-3"></div>
+  <div class="mesh-orb orb-4"></div>
+</div>
+<div class="grid-overlay" aria-hidden="true"></div>
+
+<!-- ══════════════════════════ HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="17" stroke="url(#hg)" stroke-width="1.5" stroke-dasharray="3 2"/>
+          <circle cx="20" cy="20" r="10" fill="url(#hg)" opacity=".15"/>
+          <path d="M20 11V29M11 20H29" stroke="url(#hg)" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="3" fill="url(#hg)"/>
+          <defs>
+            <linearGradient id="hg" x1="2" y1="2" x2="38" y2="38">
+              <stop offset="0%" stop-color="#00e8b5"/>
+              <stop offset="100%" stop-color="#9d97ff"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">SGSSS</span>
+        <span class="brand-sub">Health &amp; Pay Simulator</span>
+      </div>
+    </div>
+    <nav class="header-nav" aria-label="Módulos">
+      <button class="nav-pill active" onclick="scrollToSection('mod1')" id="nav-btn-mod1">Módulo 1</button>
+      <button class="nav-pill" onclick="scrollToSection('mod2')" id="nav-btn-mod2">Módulo 2</button>
+      <button class="nav-pill" onclick="scrollToSection('mod3')" id="nav-btn-mod3">Simulador</button>
+      <button class="nav-pill alejandro-btn" onclick="loadAlejandroCase()" id="btn-caso-alejandro">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        Caso Alejandro
+      </button>
+    </nav>
+  </div>
+</header>
+
+<!-- ══════════════════════════ HERO -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Colombia · SGSSS · Régimen Contributivo · <strong>2026</strong>
+    </div>
+    <h1 id="hero-title" class="hero-title">
+      Calcula tu aporte real.<br/>
+      <span class="gradient-text">Protege tu futuro.</span>
+    </h1>
+    <p class="hero-desc">
+      Simulador de cotización en salud e incapacidades médicas para trabajadores dependientes 
+      e independientes. Descubre el impacto económico real de cotizar por debajo de tus ingresos.
+    </p>
+    <div class="hero-stats" role="list">
+      <div class="stat-card" role="listitem">
+        <span class="stat-num" id="stat-smmlv">$1.750.905</span>
+        <span class="stat-label">SMMLV 2026</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-card" role="listitem">
+        <span class="stat-num stat-num--indigo">12,5%</span>
+        <span class="stat-label">Cotización Salud</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-card" role="listitem">
+        <span class="stat-num">66,67%</span>
+        <span class="stat-label">Subsidio Incapacidad</span>
+      </div>
+    </div>
+    <button class="cta-btn" onclick="scrollToSection('mod1')" id="btn-comenzar">
+      Comenzar simulación
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M9 3l6 6-6 6M3 9h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero-visual" aria-hidden="true">
+    <div class="hero-card">
+      <div class="hcard-label">Brecha financiera estimada</div>
+      <div class="hcard-amount">−$11.694.000</div>
+      <div class="hcard-sub">Pérdida mensual por elusión · Caso Alejandro 2026</div>
+      <div class="hcard-bar-wrap">
+        <div class="hcard-bar-declared"></div>
+        <div class="hcard-bar-real"></div>
+      </div>
+      <div class="hcard-labels-row">
+        <span>IBC declarado (SMMLV)</span><span>Ingreso real</span>
+      </div>
+      <div class="hcard-divider"></div>
+      <div class="hcard-stats">
+        <div class="hs-item">
+          <div class="hs-val">180</div>
+          <div class="hs-label">Días incapacidad</div>
+        </div>
+        <div class="hs-item">
+          <div class="hs-val">−92%</div>
+          <div class="hs-label">Reducción ingreso</div>
+        </div>
+        <div class="hs-item">
+          <div class="hs-val">UGPP</div>
+          <div class="hs-label">Riesgo sanción</div>
+        </div>
+        <div class="hs-item">
+          <div class="hs-val">ACV</div>
+          <div class="hs-label">Diagnóstico</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr /></div>
+
+<!-- ══════════════════════════ MÓDULO 1 -->
+<section class="module-section" id="mod1" aria-labelledby="mod1-title">
+  <div class="module-header">
+    <div class="module-number" aria-hidden="true">01</div>
+    <div>
+      <h2 id="mod1-title" class="module-title">Datos del Trabajador</h2>
+      <p class="module-desc">Selecciona tu tipo de vinculación e ingresa tus ingresos mensuales</p>
+    </div>
+  </div>
+
+  <div class="glass-card">
+    <fieldset class="fieldset-group">
+      <legend class="field-label">Tipo de Vinculación Laboral</legend>
+      <div class="type-selector" role="group" aria-label="Tipo de trabajador">
+        <label class="type-card" id="label-dependiente">
+          <input type="radio" name="tipoTrabajador" value="dependiente" id="radio-dependiente" onchange="onTipoChange()" />
+          <div class="type-card-inner">
+            <div class="type-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none">
+                <rect x="4" y="10" width="24" height="18" rx="3" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M10 10V8a6 6 0 0112 0v2" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="16" cy="19" r="3" fill="currentColor" opacity=".35"/>
+                <path d="M13 26h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="type-name">Empleado Dependiente</span>
+            <span class="type-detail">Empresa paga 8.5% · Tú pagas 4% · IBC = Salario</span>
+          </div>
+        </label>
+        <label class="type-card" id="label-independiente">
+          <input type="radio" name="tipoTrabajador" value="independiente" id="radio-independiente" onchange="onTipoChange()" checked />
+          <div class="type-card-inner">
+            <div class="type-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="11" r="6" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M4 28c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M21 21l2 2 4-4" stroke="#00e8b5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span class="type-name">Independiente / Freelance</span>
+            <span class="type-detail">Pagas 12.5% completo · IBC = 40% de ingresos</span>
+          </div>
+        </label>
+      </div>
+    </fieldset>
+
+    <div class="field-group">
+      <div class="contracts-header">
+        <label class="field-label" id="contracts-label">Ingresos Mensuales — Contratos / Fuentes</label>
+        <button class="add-contract-btn" onclick="addContract()" id="btn-add-contrato" aria-label="Agregar contrato">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Agregar contrato
+        </button>
+      </div>
+      <div id="contracts-list" aria-label="Lista de contratos" aria-live="polite"></div>
+      <div class="contracts-total" id="contracts-total-wrap">
+        <span class="total-label">Total Ingresos Brutos:</span>
+        <span class="total-value" id="total-ingresos">$0</span>
+      </div>
+    </div>
+
+    <div class="info-banner" id="smmlv-info-banner" role="status" aria-live="polite">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <circle cx="8" cy="8" r="7" stroke="#00e8b5" stroke-width="1.4"/>
+        <path d="M8 7v4M8 5.5v.5" stroke="#00e8b5" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <span id="smmlv-info-text">SMMLV 2026: $1.750.905 COP (Decreto 1469/2025) — Ingresa tus ingresos para calcular el IBC legal.</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr /></div>
+
+<!-- ══════════════════════════ MÓDULO 2 -->
+<section class="module-section" id="mod2" aria-labelledby="mod2-title">
+  <div class="module-header">
+    <div class="module-number" aria-hidden="true">02</div>
+    <div>
+      <h2 id="mod2-title" class="module-title">Motor de Cálculo</h2>
+      <p class="module-desc">IBC legal · Cotización exacta · Alerta de elusión en tiempo real</p>
+    </div>
+  </div>
+
+  <div class="calc-grid">
+    <!-- IBC -->
+    <div class="glass-card">
+      <div class="calc-card-title">
+        <span class="card-icon" aria-hidden="true">⚡</span>IBC Calculado
+      </div>
+      <div class="big-metric" id="ibc-display">$0</div>
+      <div class="metric-formula" id="ibc-formula">Ingresa tus datos para calcular</div>
+      <div class="metric-divider"></div>
+      <div class="metric-row">
+        <span class="metric-label">Ingreso Bruto Total</span>
+        <span class="metric-value" id="m2-ingreso-bruto">$0</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">IBC Mínimo Legal (SMMLV 2026)</span>
+        <span class="metric-value teal" id="m2-smmlv">$1.750.905</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">IBC Legal Aplicable</span>
+        <span class="metric-value highlight" id="m2-ibc-legal">$0</span>
+      </div>
+    </div>
+
+    <!-- Cotización -->
+    <div class="glass-card">
+      <div class="calc-card-title">
+        <span class="card-icon" aria-hidden="true">💰</span>Cotización en Salud (12,5%)
+      </div>
+      <div class="big-metric" id="cotizacion-display">$0</div>
+      <div class="metric-formula" id="cotizacion-formula">IBC × 12,5%</div>
+      <div class="metric-divider"></div>
+      <div class="metric-row" id="aporte-empleador-row" style="display:none">
+        <span class="metric-label">Empresa (8,5%)</span>
+        <span class="metric-value" id="m2-empleador">$0</span>
+      </div>
+      <div class="metric-row" id="aporte-empleado-row">
+        <span class="metric-label" id="aporte-empleado-label">Independiente (12,5%)</span>
+        <span class="metric-value" id="m2-empleado">$0</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">Total Cotización/mes</span>
+        <span class="metric-value highlight" id="m2-total-cotizacion">$0</span>
+      </div>
+    </div>
+
+    <!-- Elusión — full width -->
+    <div class="glass-card full-width-card">
+      <div class="calc-card-title">
+        <span class="card-icon" aria-hidden="true">⚠️</span>Simulador de Elusión — ¿Cuánto estás declarando actualmente?
+      </div>
+      <div class="evasion-input-wrap">
+        <label class="field-label" for="ibc-declarado-input">IBC que declaras actualmente en la PILA (COP)</label>
+        <input
+          type="number"
+          id="ibc-declarado-input"
+          class="text-input"
+          placeholder="Ej: 1750905"
+          min="0"
+          step="50000"
+          oninput="calcularEvasion()"
+          aria-describedby="ibc-declarado-desc"
+        />
+        <span id="ibc-declarado-desc" class="input-hint">Ingresa el valor que actualmente usas como base de cotización en la Planilla Integrada de Liquidación de Aportes</span>
+      </div>
+      <div class="evasion-grid" id="evasion-grid">
+        <div class="evasion-metric">
+          <span class="em-label">IBC Declarado</span>
+          <span class="em-value orange" id="ev-declarado">$0</span>
+        </div>
+        <div class="evasion-metric">
+          <span class="em-label">IBC Legal Requerido</span>
+          <span class="em-value teal" id="ev-legal">$0</span>
+        </div>
+        <div class="evasion-metric">
+          <span class="em-label">Diferencia (Brecha)</span>
+          <span class="em-value deficit" id="ev-brecha">$0</span>
+        </div>
+        <div class="evasion-metric">
+          <span class="em-label">Ahorro ficticio/mes</span>
+          <span class="em-value" id="ev-ahorro">$0</span>
+        </div>
+      </div>
+      <div class="alert-box" id="alert-evasion" role="alert" aria-live="assertive" style="display:none">
+        <div class="alert-icon" aria-hidden="true">🚨</div>
+        <div class="alert-content">
+          <div class="alert-title">⚠️ ALERTA LEGAL — UGPP</div>
+          <div class="alert-body" id="alert-body-text"></div>
+        </div>
+      </div>
+      <div class="ok-box" id="ok-evasion" role="status" style="display:none">
+        <div class="ok-icon" aria-hidden="true">✅</div>
+        <div class="ok-content">
+          <div class="ok-title">Cotización correcta</div>
+          <div class="ok-body">Tu IBC declarado cumple con el mínimo legal establecido para 2026. Estás protegido ante posibles incapacidades y sanciones de la UGPP.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr /></div>
+
+<!-- ══════════════════════════ MÓDULO 3 -->
+<section class="module-section" id="mod3" aria-labelledby="mod3-title">
+  <div class="module-header">
+    <div class="module-number" aria-hidden="true">03</div>
+    <div>
+      <h2 id="mod3-title" class="module-title">Simulador de Incapacidad Médica</h2>
+      <p class="module-desc">Subsidio EPS real · Brecha financiera · Desglose por fases</p>
+    </div>
+  </div>
+
+  <!-- Caso Alejandro -->
+  <div class="caso-banner" id="caso-banner" role="region" aria-label="Caso Alejandro">
+    <div class="caso-banner-left">
+      <div class="caso-avatar" aria-hidden="true">
+        <svg viewBox="0 0 60 60" fill="none">
+          <circle cx="30" cy="30" r="28" fill="url(#avg)" opacity=".1"/>
+          <circle cx="30" cy="22" r="10" fill="url(#avg)"/>
+          <path d="M10 54c0-11.046 8.954-20 20-20s20 8.954 20 20" fill="url(#avg)"/>
+          <defs>
+            <linearGradient id="avg" x1="2" y1="2" x2="58" y2="58">
+              <stop stop-color="#00e8b5"/>
+              <stop offset="1" stop-color="#7b72ff"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="caso-info">
+        <div class="caso-name">El Caso Alejandro</div>
+        <div class="caso-role">Desarrollador Full-Stack Senior · 29 años · Independiente · EPS SOPHIA</div>
+        <div class="caso-tags">
+          <span class="caso-tag">ACV Isquémico</span>
+          <span class="caso-tag">180 días incapacidad</span>
+          <span class="caso-tag">Elusión UGPP</span>
+          <span class="caso-tag">Ingreso real: $12.000.000</span>
+        </div>
+      </div>
+    </div>
+    <button class="load-case-btn" onclick="loadAlejandroCase()" id="btn-load-caso">
+      Cargar caso completo
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M2 8h10M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Slider -->
+  <div class="glass-card slider-card">
+    <div class="slider-header">
+      <label class="field-label" for="dias-slider">Días de Incapacidad Médica — Enfermedad General</label>
+      <div class="dias-badge" id="dias-badge" aria-live="polite">
+        <span id="dias-value">30</span> días
+      </div>
+    </div>
+    <div class="slider-track-wrap">
+      <input
+        type="range"
+        id="dias-slider"
+        class="dias-slider"
+        min="1" max="180" value="30" step="1"
+        oninput="onDiasChange()"
+        aria-valuemin="1" aria-valuemax="180" aria-valuenow="30"
+        aria-label="Días de incapacidad médica"
+      />
+      <div class="slider-markers" aria-hidden="true">
+        <span>1</span><span>45</span><span>90</span><span>135</span><span>180</span>
+      </div>
+    </div>
+    <div class="dias-phases" aria-label="Fases de la incapacidad">
+      <div class="phase-item" id="phase-1">
+        <div class="phase-dot" style="background:#ff5f7e; color:#ff5f7e"></div>
+        <div class="phase-info">
+          <span class="phase-name">Fase 1-2 (Empleador/Asume)</span>
+          <span class="phase-range">Días 1–2</span>
+        </div>
+      </div>
+      <div class="phase-item" id="phase-2">
+        <div class="phase-dot" style="background:#ffb547; color:#ffb547"></div>
+        <div class="phase-info">
+          <span class="phase-name">Subsidio EPS 66,67%</span>
+          <span class="phase-range">Días 3–90</span>
+        </div>
+      </div>
+      <div class="phase-item" id="phase-3">
+        <div class="phase-dot" style="background:#7b72ff; color:#7b72ff"></div>
+        <div class="phase-info">
+          <span class="phase-name">Subsidio EPS extendido 50%</span>
+          <span class="phase-range">Días 91–180</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="incap-results-grid">
+    <!-- Escenario Mal -->
+    <div class="glass-card scenario-card scenario-card--bad">
+      <div class="scenario-header">
+        <div class="scenario-badge scenario-badge--bad" aria-hidden="true">⚠</div>
+        <div>
+          <div class="scenario-title">Escenario Actual (Elusión)</div>
+          <div class="scenario-sub" id="sc-bad-ibc">IBC declarado: $0</div>
+        </div>
+      </div>
+      <div class="scenario-body">
+        <div class="sc-row">
+          <span>Primeros días (Días 1–2)</span>
+          <span id="sc-bad-sin-ingreso" class="sc-val deficit">$0</span>
+        </div>
+        <div class="sc-row" id="sc-bad-fase1-row">
+          <span id="sc-bad-fase1-label">Subsidio EPS (Días 4–X)</span>
+          <span id="sc-bad-fase1" class="sc-val">$0</span>
+        </div>
+        <div class="sc-row" id="sc-bad-fase2-row" style="display:none">
+          <span id="sc-bad-fase2-label">Subsidio EPS (Días 91–X)</span>
+          <span id="sc-bad-fase2" class="sc-val">$0</span>
+        </div>
+        <div class="sc-divider"></div>
+        <div class="sc-row sc-row--total">
+          <span>TOTAL Período</span>
+          <span id="sc-bad-total" class="sc-val">$0</span>
+        </div>
+        <div class="sc-row">
+          <span>Ingreso mensual equiv.</span>
+          <span id="sc-bad-mensual" class="sc-val deficit">$0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Escenario Bien -->
+    <div class="glass-card scenario-card scenario-card--good">
+      <div class="scenario-header">
+        <div class="scenario-badge scenario-badge--good" aria-hidden="true">✓</div>
+        <div>
+          <div class="scenario-title">Escenario Correcto (IBC Legal)</div>
+          <div class="scenario-sub" id="sc-good-ibc">IBC legal: $0</div>
+        </div>
+      </div>
+      <div class="scenario-body">
+        <div class="sc-row">
+          <span>Primeros días (Días 1–2)</span>
+          <span id="sc-good-sin-ingreso" class="sc-val deficit">$0</span>
+        </div>
+        <div class="sc-row" id="sc-good-fase1-row">
+          <span id="sc-good-fase1-label">Subsidio EPS (Días 4–X)</span>
+          <span id="sc-good-fase1" class="sc-val">$0</span>
+        </div>
+        <div class="sc-row" id="sc-good-fase2-row" style="display:none">
+          <span id="sc-good-fase2-label">Subsidio EPS (Días 91–X)</span>
+          <span id="sc-good-fase2" class="sc-val">$0</span>
+        </div>
+        <div class="sc-divider"></div>
+        <div class="sc-row sc-row--total">
+          <span>TOTAL Período</span>
+          <span id="sc-good-total" class="sc-val teal">$0</span>
+        </div>
+        <div class="sc-row">
+          <span>Ingreso mensual equiv.</span>
+          <span id="sc-good-mensual" class="sc-val teal">$0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Brecha -->
+    <div class="glass-card scenario-card scenario-card--gap">
+      <div class="scenario-header">
+        <div class="scenario-badge scenario-badge--gap" aria-hidden="true">↓</div>
+        <div>
+          <div class="scenario-title">Brecha Financiera</div>
+          <div class="scenario-sub">Pérdida por cotizar menos del IBC legal</div>
+        </div>
+      </div>
+      <div class="scenario-body">
+        <div class="brecha-big" id="brecha-total" aria-live="polite">$0</div>
+        <div class="brecha-sub">Dinero que <strong>no recibirás</strong> por elusión durante el período</div>
+        <div class="sc-divider"></div>
+        <div class="sc-row">
+          <span>Pérdida diaria promedio</span>
+          <span id="brecha-diaria" class="sc-val deficit">$0</span>
+        </div>
+        <div class="sc-row">
+          <span>Pérdida mensual equiv.</span>
+          <span id="brecha-mensual" class="sc-val deficit">$0</span>
+        </div>
+        <div class="sc-row">
+          <span>% del ingreso real perdido</span>
+          <span id="brecha-pct" class="sc-val deficit">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart -->
+  <div class="glass-card chart-card" aria-labelledby="chart-title">
+    <div class="chart-header">
+      <h3 id="chart-title" class="chart-title">Análisis Visual — Brecha Financiera por Días de Incapacidad</h3>
+      <div class="chart-legend" aria-label="Leyenda del gráfico">
+        <span class="legend-dot legend-dot--teal" aria-hidden="true"></span><span>IBC Legal</span>
+        <span class="legend-dot legend-dot--rose" aria-hidden="true"></span><span>IBC Declarado</span>
+        <span class="legend-dot legend-dot--amber" aria-hidden="true"></span><span>Brecha</span>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="mainChart" aria-label="Gráfica de subsidio EPS y brecha financiera por días de incapacidad" role="img"></canvas>
+    </div>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="glass-card executive-card" id="executive-summary" aria-labelledby="exec-title">
+    <h3 id="exec-title" class="exec-title">
+      <span aria-hidden="true">📋</span> Resumen Ejecutivo — Impacto Económico de la Elusión
+    </h3>
+    <div class="exec-grid">
+      <div class="exec-item">
+        <span class="exec-icon" aria-hidden="true">🏥</span>
+        <div class="exec-label">Nivel de Riesgo UGPP</div>
+        <div class="exec-value" id="exec-riesgo">Calcular primero</div>
+      </div>
+      <div class="exec-item">
+        <span class="exec-icon" aria-hidden="true">💸</span>
+        <div class="exec-label">Pérdida total (180 días)</div>
+        <div class="exec-value deficit" id="exec-perdida">$0</div>
+      </div>
+      <div class="exec-item">
+        <span class="exec-icon" aria-hidden="true">📉</span>
+        <div class="exec-label">Reducción de ingresos</div>
+        <div class="exec-value deficit" id="exec-reduccion">0%</div>
+      </div>
+      <div class="exec-item">
+        <span class="exec-icon" aria-hidden="true">⚖️</span>
+        <div class="exec-label">Sanción UGPP máx. (60%)</div>
+        <div class="exec-value orange" id="exec-sancion">$0</div>
+      </div>
+    </div>
+    <div class="legal-note" role="note">
+      <strong>Marco Legal:</strong> Según el Artículo 271 de la Ley 1955 de 2019 y la normativa de la UGPP,
+      la omisión o inexactitud en la autoliquidación de aportes puede generar sanciones equivalentes al
+      <strong>5% mensual</strong> del valor no cotizado, con un máximo del 60%. La EPS puede suspender o negar
+      prestaciones económicas por inconsistencias detectadas mediante cruce de información con la DIAN.
+      SMMLV 2026: $1.750.905 · Auxilio de transporte 2026: $249.095 · Decreto 1469/2025.
+      <span class="badge-ugpp">UGPP</span>
+      <span class="badge-minsalud">MinSalud</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="brand-name">SGSSS</span>
+      <span class="brand-sub">Health &amp; Pay Simulator 2026</span>
+    </div>
+    <p class="footer-desc">
+      Herramienta educativa desarrollada para actividad de Transferencia del Conocimiento · SENA.<br/>
+      Los cálculos son orientativos basados en normativa vigente del Sistema General de Seguridad Social en Salud de Colombia.
+    </p>
+    <div class="footer-badges" aria-label="Referencias normativas">
+      <span class="fbadge">Ley 1122/2007</span>
+      <span class="fbadge">Decreto 780/2016</span>
+      <span class="fbadge">Ley 1955/2019</span>
+      <span class="fbadge">Decreto 1469/2025</span>
+      <span class="fbadge">Decreto 159/2026</span>
+    </div>
+    <p class="footer-copy">© 2026 · SMMLV: $1.750.905 COP · Cotización Salud: 12,5% · Auxilio Transporte: $249.095</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

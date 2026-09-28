@@ -1,0 +1,123 @@
+// ═══════════════════════════════════════════════════════════════
+// _tokens.scss — Design System Tokens
+// SGSSS Health & Pay Simulator 2026
+// ═══════════════════════════════════════════════════════════════
+
+// ─── COLOR PALETTE ────────────────────────────────────────────
+$teal:          #00e8b5;
+$teal-bright:   #00f5c8;
+$teal-dim:      #00b48c;
+$teal-glow:     rgba(0, 232, 181, 0.18);
+$teal-subtle:   rgba(0, 232, 181, 0.07);
+
+$indigo:        #7b72ff;
+$indigo-bright: #9d97ff;
+$indigo-dim:    #5a53d4;
+$indigo-glow:   rgba(123, 114, 255, 0.18);
+$indigo-subtle: rgba(123, 114, 255, 0.07);
+
+$rose:          #ff5f7e;
+$rose-bright:   #ff8fa3;
+$rose-glow:     rgba(255, 95, 126, 0.18);
+$rose-subtle:   rgba(255, 95, 126, 0.07);
+
+$amber:         #ffb547;
+$amber-dim:     #e09630;
+$amber-glow:    rgba(255, 181, 71, 0.18);
+$amber-subtle:  rgba(255, 181, 71, 0.07);
+
+$emerald:       #3dffa0;
+$emerald-dim:   #1acc70;
+
+// Backgrounds — layered dark
+$bg-base:       #050510;
+$bg-surface:    #0a0a1e;
+$bg-elevated:   #10102a;
+$bg-overlay:    #161632;
+
+// Glass
+$glass-bg:      rgba(255, 255, 255, 0.032);
+$glass-bg-hover:rgba(255, 255, 255, 0.055);
+$glass-border:  rgba(255, 255, 255, 0.075);
+$glass-border-hover: rgba(255, 255, 255, 0.13);
+$glass-blur:    24px;
+
+// Text
+$text-primary:   #eeeeff;
+$text-secondary: rgba(238, 238, 255, 0.52);
+$text-muted:     rgba(238, 238, 255, 0.26);
+$text-hint:      rgba(238, 238, 255, 0.16);
+
+// ─── TYPOGRAPHY ───────────────────────────────────────────────
+$font-ui:   'Outfit', system-ui, -apple-system, sans-serif;
+$font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+$text-xs:   0.70rem;
+$text-sm:   0.82rem;
+$text-base: 0.95rem;
+$text-md:   1.05rem;
+$text-lg:   1.20rem;
+$text-xl:   1.45rem;
+$text-2xl:  1.80rem;
+$text-3xl:  2.20rem;
+$text-4xl:  3.00rem;
+
+$weight-light:   300;
+$weight-regular: 400;
+$weight-medium:  500;
+$weight-semi:    600;
+$weight-bold:    700;
+$weight-extra:   800;
+$weight-black:   900;
+
+// ─── SPACING ──────────────────────────────────────────────────
+$space-1:  4px;
+$space-2:  8px;
+$space-3:  12px;
+$space-4:  16px;
+$space-5:  20px;
+$space-6:  24px;
+$space-8:  32px;
+$space-10: 40px;
+$space-12: 48px;
+$space-16: 64px;
+$space-20: 80px;
+
+// ─── BORDER RADIUS ────────────────────────────────────────────
+$r-xs:  6px;
+$r-sm:  10px;
+$r-md:  16px;
+$r-lg:  22px;
+$r-xl:  30px;
+$r-full: 9999px;
+
+// ─── SHADOWS ──────────────────────────────────────────────────
+$shadow-card:
+  0 2px 4px rgba(0,0,0,0.4),
+  0 8px 32px rgba(0,0,0,0.45),
+  0 1px 0 rgba(255,255,255,0.055) inset;
+
+$shadow-card-hover:
+  0 4px 8px rgba(0,0,0,0.5),
+  0 16px 48px rgba(0,0,0,0.5),
+  0 0 0 1px rgba(0,232,181,0.07) inset,
+  0 1px 0 rgba(255,255,255,0.07) inset;
+
+$shadow-glow-teal:   0 0 40px rgba(0, 232, 181, 0.20), 0 0 80px rgba(0, 232, 181, 0.08);
+$shadow-glow-indigo: 0 0 40px rgba(123, 114, 255, 0.20), 0 0 80px rgba(123, 114, 255, 0.08);
+$shadow-glow-rose:   0 0 40px rgba(255, 95, 126, 0.20);
+$shadow-btn:         0 4px 24px rgba(0, 232, 181, 0.35), 0 1px 0 rgba(255,255,255,0.2) inset;
+
+// ─── TRANSITIONS ──────────────────────────────────────────────
+$ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+$ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+$ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+$duration-fast:   180ms;
+$duration-base:   260ms;
+$duration-slow:   400ms;
+$transition-base: #{$duration-base} #{$ease-standard};
+
+// ─── LAYOUT ───────────────────────────────────────────────────
+$max-width:    1320px;
+$header-h:     68px;
+$gutter:       clamp(1rem, 4vw, 3rem);
